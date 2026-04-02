@@ -67,9 +67,12 @@
             <p id="empty-msg" v-else-if="currentList.length === 0">No results found.</p>
 
             <ul id="card-list" v-else>
-                <li v-for="item in currentList" :key="item.id" class="card">
+                <li v-for="item in currentList" :key="item.id" class="card"
+                    :class="{ 'card--selected': selectedItem && selectedItem.id === item.id }">
                     <div class="card__header">
-                        <span class="card__title">{{ item.name || item.title }}</span>
+                        <button class="card__title-btn" @click="selectItem(item.id)">
+                            {{ item.name || item.title }}
+                        </button>
                     </div>
                     <p v-if="item.email" class="card__meta">{{ item.email }}</p>
                     <p v-if="item.books_count !== undefined" class="card__meta">{{ item.books_count }} book(s)</p>

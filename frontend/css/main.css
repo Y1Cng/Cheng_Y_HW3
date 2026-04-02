@@ -144,6 +144,11 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
   transform: translateY(-2px);
 }
 
+.card--selected {
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 2px #1a1a2e;
+}
+
 .card__header {
   display: flex;
   align-items: center;
@@ -151,10 +156,18 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
   margin-bottom: 8px;
 }
 
-.card__title {
+.card__title-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
   font-size: 1rem;
   font-weight: bold;
+  cursor: pointer;
+  text-align: left;
   color: #1a1a2e;
 }
+
+.card__title-btn:hover { text-decoration: underline; }
 
 .card__meta { font-size: .85rem; color: #666; margin-top: 4px; }
