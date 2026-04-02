@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <title>Author &amp; Book Manager</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
+    <link href="css/grid.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <script defer src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+    <script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+      }
+    }
+  </script>
+    <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+
+    <header id="main-header">
+        <div class="grid-con">
+            <div class="col-span-full">
+                <h1>Author &amp; Book Manager</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="grid-con" id="app">
+
+        <!-- Tab navigation -->
+        <div class="col-span-full" id="tab-nav">
+            <button id="btn-authors" :class="{ active: currentTab === 'authors' }"
+                @click="switchTab('authors')">Authors</button>
+            <button id="btn-books" :class="{ active: currentTab === 'books' }"
+                @click="switchTab('books')">Books</button>
+        </div>
+
+        <!-- Search and filter bar -->
+        <div class="col-span-full" id="search-bar">
+            <input id="search-input" v-model="searchQuery" :placeholder="searchPlaceholder" @keyup.enter="loadList" />
+            <input v-if="currentTab === 'books'" id="author-id-input" v-model="authorIdFilter" placeholder="Author ID"
+                type="number" />
+            <input v-if="currentTab === 'books'" id="min-price-input" v-model="minPriceFilter"
+                placeholder="Min price ($)" type="number" step="0.01" />
+            <button id="btn-search" @click="loadList">Search</button>
+        </div>
+
+        <!-- Error banner -->
+        <div class="col-span-full" id="error-msg" v-if="error">
+            {{ error }}
+        </div>
+
+        <!-- List column -->
+        <div class="col-span-full" id="list-col">
+
+            <div id="list-loading" v-if="loading">
+                <span class="spinner"></span>
+                Loading...
+            </div>
+
+            <p id="empty-msg" v-else-if="currentList.length === 0">No results found.</p>
+
+            <ul id="card-list" v-else>
+                <li v-for="item in currentList" :key="item.id" class="card">
+                    <div class="card__header">
+                        <span class="card__title">{{ item.name || item.title }}</span>
+                    </div>
+                    <p v-if="item.email" class="card__meta">{{ item.email }}</p>
+                    <p v-if="item.books_count !== undefined" class="card__meta">{{ item.books_count }} book(s)</p>
+                    <p v-if="item.price" class="card__meta">${{ item.price }}</p>
+                    <p v-if="item.author" class="card__meta">by {{ item.author.name }}</p>
+                </li>
+            </ul>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
