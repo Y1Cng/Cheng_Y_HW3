@@ -11,6 +11,7 @@ export function app() {
         searchQuery: '',
         authorIdFilter: '',
         minPriceFilter: '',
+        selectedItem: null,
         loading: false,
         error: null,
       };
@@ -37,9 +38,9 @@ export function app() {
     },
 
     methods: {
-      // I reset filters and reload the list when switching tabs
       switchTab(tab) {
         this.currentTab = tab;
+        this.selectedItem = null;
         this.searchQuery = '';
         this.authorIdFilter = '';
         this.minPriceFilter = '';
@@ -89,6 +90,22 @@ export function app() {
         function stopLoading() {
           this.loading = false;
         }
+      },
+
+      selectItem(id) {
+        let found = null;
+        const list = this.currentList;
+        for (let i = 0; i < list.length; i++) {
+          if (list[i].id === id) {
+            found = list[i];
+            break;
+          }
+        }
+        this.selectedItem = found;
+      },
+
+      closeDetail() {
+        this.selectedItem = null;
       },
     },
   }).mount('#app');
