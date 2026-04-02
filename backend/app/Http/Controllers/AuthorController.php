@@ -25,7 +25,6 @@ class AuthorController extends Controller
         $query = Author::query();
 
         if (!empty($search)) {
-            // search name OR bio with a single query param
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', '%' . $search . '%')
                   ->orWhere('bio',  'LIKE', '%' . $search . '%');
@@ -39,5 +38,53 @@ class AuthorController extends Controller
         $query->withCount('books')->orderBy('name');
 
         return $query->get();
+    }
+
+    /**
+     * Return a single author with their books.
+     *
+     * @param Author $author
+     * @return Author
+     */
+    public function show(Author $author)
+    {
+        $author->load('books');
+        return $author;
+    }
+
+    /**
+     * Store a new author.
+     *
+     * @param Request $request
+     * @return Author
+     */
+    public function store(Request $request)
+    {
+        return Author::create($request->all());
+    }
+
+    /**
+     * Update an existing author.
+     *
+     * @param Request $request
+     * @param Author $author
+     * @return Author
+     */
+    public function update(Request $request, Author $author)
+    {
+        $author->update($request->all());
+        return $author;
+    }
+
+    /**
+     * Delete an author.
+     *
+     * @param Author $author
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Author $author)
+    {
+        $author->delete();
+        return response()->noContent();
     }
 }

@@ -30,12 +30,10 @@ class BookController extends Controller
             $query->where('title', 'LIKE', '%' . $search . '%');
         }
 
-        // filter 2: exact author match
         if ($authorId !== null) {
             $query->where('author_id', '=', $authorId);
         }
 
-        // filter 3: minimum price
         if ($minPrice !== null) {
             $query->where('price', '>=', $minPrice);
         }
@@ -43,5 +41,53 @@ class BookController extends Controller
         $query->with('author')->orderBy('title');
 
         return $query->get();
+    }
+
+    /**
+     * Return a single book with its author.
+     *
+     * @param Book $book
+     * @return Book
+     */
+    public function show(Book $book)
+    {
+        $book->load('author');
+        return $book;
+    }
+
+    /**
+     * Store a new book.
+     *
+     * @param Request $request
+     * @return Book
+     */
+    public function store(Request $request)
+    {
+        return Book::create($request->all());
+    }
+
+    /**
+     * Update an existing book.
+     *
+     * @param Request $request
+     * @param Book $book
+     * @return Book
+     */
+    public function update(Request $request, Book $book)
+    {
+        $book->update($request->all());
+        return $book;
+    }
+
+    /**
+     * Delete a book.
+     *
+     * @param Book $book
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Book $book)
+    {
+        $book->delete();
+        return response()->noContent();
     }
 }
