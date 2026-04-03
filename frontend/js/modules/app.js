@@ -15,6 +15,8 @@ export function app() {
         loading: false,
         loadingDetail: false,
         error: null,
+        newAuthor: { name: '', email: '', bio: '' },
+        newBook: { title: '', pages: '', price: '', author_id: '' },
       };
     },
 
@@ -132,6 +134,29 @@ export function app() {
 
       closeDetail() {
         this.selectedItem = null;
+      },
+
+      deleteItem(id) {
+        if (!confirm('Delete this item?')) {
+          return;
+        }
+        this.error = null;
+
+        fetch(`${this.apiUrl}/${this.currentTab}/${id}`, {
+          method: 'DELETE',
+        })
+          .then(handleDeleteResponse.bind(this))
+          .catch(handleError.bind(this));
+
+        function handleDeleteResponse(res) {
+          if (!res.ok) {
+            throw new Error('Failed to delete item.');
+          }
+          if (this.selectedItem && this.selectedItem.id === id) {
+            this.selectedItem = null;
+          }
+          this.loadList();
+        }
       },
     },
   }).mount('#app');

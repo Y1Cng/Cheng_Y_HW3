@@ -73,6 +73,7 @@
                         <button class="card__title-btn" @click="selectItem(item.id)">
                             {{ item.name || item.title }}
                         </button>
+                        <button class="card__delete-btn" @click="deleteItem(item.id)">&#10005;</button>
                     </div>
                     <p v-if="item.email" class="card__meta">{{ item.email }}</p>
                     <p v-if="item.books_count !== undefined" class="card__meta">{{ item.books_count }} book(s)</p>
@@ -120,6 +121,27 @@
 
                 <button id="btn-close-detail" @click="closeDetail">Close</button>
 
+            </div>
+        </div>
+
+        <!-- Add form -->
+        <div class="col-span-full" id="add-form">
+            <h3 v-if="currentTab === 'authors'">Add Author</h3>
+            <h3 v-else>Add Book</h3>
+
+            <div class="form-fields" v-if="currentTab === 'authors'">
+                <input v-model="newAuthor.name" placeholder="Name" />
+                <input v-model="newAuthor.email" placeholder="Email" />
+                <input v-model="newAuthor.bio" placeholder="Bio" />
+                <button>Add</button>
+            </div>
+
+            <div class="form-fields" v-else>
+                <input v-model="newBook.title" placeholder="Title" />
+                <input v-model="newBook.pages" placeholder="Pages" type="number" />
+                <input v-model="newBook.price" placeholder="Price" type="number" step="0.01" />
+                <input v-model="newBook.author_id" placeholder="Author ID" type="number" />
+                <button>Add</button>
             </div>
         </div>
 

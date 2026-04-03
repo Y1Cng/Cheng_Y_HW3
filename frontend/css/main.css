@@ -171,6 +171,19 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
 
 .card__title-btn:hover { text-decoration: underline; }
 
+.card__delete-btn {
+  background: transparent;
+  border: 1px solid #c53030;
+  color: #c53030;
+  padding: 2px 7px;
+  font-size: .75rem;
+  cursor: pointer;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.card__delete-btn:hover { background: #c53030; color: #fff; }
+
 .card__meta { font-size: .85rem; color: #666; margin-top: 4px; }
 
 /* ===== Detail Panel ===== */
@@ -216,3 +229,40 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
 }
 
 #btn-close-detail:hover { background: #f0f0f0; }
+
+/* ===== Add Form ===== */
+#add-form {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+
+.form-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-fields input {
+  flex: 1;
+  min-width: 130px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: .88rem;
+}
+
+.form-fields button {
+  padding: 8px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .88rem;
+  transition: background .2s;
+}
+
+.form-fields button:hover { background: #2e2e50; }
