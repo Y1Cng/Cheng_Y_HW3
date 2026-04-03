@@ -73,6 +73,7 @@
                         <button class="card__title-btn" @click="selectItem(item.id)">
                             {{ item.name || item.title }}
                         </button>
+                        <button class="card__delete-btn" @click="deleteItem(item.id)">&#10005;</button>
                     </div>
                     <p v-if="item.email" class="card__meta">{{ item.email }}</p>
                     <p v-if="item.books_count !== undefined" class="card__meta">{{ item.books_count }} book(s)</p>
