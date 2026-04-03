@@ -56,8 +56,8 @@
             {{ error }}
         </div>
 
-        <!-- List column -->
-        <div class="col-span-full" id="list-col">
+        <!-- List column (shrinks to 7 cols on tablet+ when detail is open) -->
+        <div class="col-span-full m-col-span-7" id="list-col">
 
             <div id="list-loading" v-if="loading">
                 <span class="spinner"></span>
@@ -81,6 +81,46 @@
                 </li>
             </ul>
 
+        </div>
+
+        <!-- Detail column (cols 8-12 on tablet+) -->
+        <div class="col-span-full m-col-start-8 m-col-end-13" id="detail-col" ref="detailPanel"
+            v-show="selectedItem || loadingDetail">
+
+            <div id="detail-loading" v-if="loadingDetail">
+                <span class="spinner"></span>
+                Loading details...
+            </div>
+
+            <div id="detail-box" v-else-if="selectedItem">
+
+                <!-- Author detail -->
+                <div v-if="currentTab === 'authors'">
+                    <h2>{{ selectedItem.name }}</h2>
+                    <p><span class="label">Email:</span> {{ selectedItem.email }}</p>
+                    <p v-if="selectedItem.bio"><span class="label">Bio:</span> {{ selectedItem.bio }}</p>
+                    <div v-if="selectedItem.books && selectedItem.books.length > 0">
+                        <p class="label">Books:</p>
+                        <ul id="author-books-list">
+                            <li v-for="book in selectedItem.books" :key="book.id">
+                                {{ book.title }} &mdash; ${{ book.price }}
+                            </li>
+                        </ul>
+                    </div>
+                    <p v-else><span class="label">Books:</span> None yet.</p>
+                </div>
+
+                <!-- Book detail -->
+                <div v-else>
+                    <h2>{{ selectedItem.title }}</h2>
+                    <p v-if="selectedItem.author"><span class="label">Author:</span> {{ selectedItem.author.name }}</p>
+                    <p><span class="label">Price:</span> ${{ selectedItem.price }}</p>
+                    <p v-if="selectedItem.pages"><span class="label">Pages:</span> {{ selectedItem.pages }}</p>
+                </div>
+
+                <button id="btn-close-detail" @click="closeDetail">Close</button>
+
+            </div>
         </div>
 
     </main>

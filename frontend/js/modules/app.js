@@ -13,6 +13,7 @@ export function app() {
         minPriceFilter: '',
         selectedItem: null,
         loading: false,
+        loadingDetail: false,
         error: null,
       };
     },
@@ -93,15 +94,40 @@ export function app() {
       },
 
       selectItem(id) {
-        let found = null;
-        const list = this.currentList;
-        for (let i = 0; i < list.length; i++) {
-          if (list[i].id === id) {
-            found = list[i];
-            break;
+        this.loadingDetail = true;
+        this.selectedItem = null;
+        this.error = null;
+
+        fetch(`${this.apiUrl}/${this.currentTab}/${id}`)
+          .then(handleDetailResponse)
+          .then(storeDetail.bind(this))
+          .catch(handleError.bind(this))
+          .finally(stopDetailLoading.bind(this));
+
+        function handleDetailResponse(res) {
+          if (!res.ok) {
+            throw new Error('Failed to load details.');
           }
+          return res.json();
         }
-        this.selectedItem = found;
+
+        function storeDetail(data) {
+          this.selectedItem = data;
+          this.$nextTick(animateDetailPanel.bind(this));
+        }
+
+        function animateDetailPanel() {
+          gsap.from(this.$refs.detailPanel, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: 'power2.out',
+          });
+        }
+
+        function stopDetailLoading() {
+          this.loadingDetail = false;
+        }
       },
 
       closeDetail() {

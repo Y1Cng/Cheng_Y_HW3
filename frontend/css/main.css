@@ -110,7 +110,8 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-#list-loading {
+#list-loading,
+#detail-loading {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -171,3 +172,47 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
 .card__title-btn:hover { text-decoration: underline; }
 
 .card__meta { font-size: .85rem; color: #666; margin-top: 4px; }
+
+/* ===== Detail Panel ===== */
+#detail-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  #detail-box { margin-top: 0; }
+}
+
+#detail-box p { margin-bottom: 12px; font-size: .9rem; }
+
+.label {
+  font-weight: bold;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #666;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+#author-books-list { list-style: none; padding: 0; margin: 8px 0 0; }
+
+#author-books-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: .88rem;
+}
+
+#btn-close-detail {
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .85rem;
+}
+
+#btn-close-detail:hover { background: #f0f0f0; }
