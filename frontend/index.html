@@ -133,7 +133,7 @@
                 <input v-model="newAuthor.name" placeholder="Name" />
                 <input v-model="newAuthor.email" placeholder="Email" />
                 <input v-model="newAuthor.bio" placeholder="Bio" />
-                <button>Add</button>
+                <button @click="createAuthor">Add</button>
             </div>
 
             <div class="form-fields" v-else>
@@ -141,7 +141,7 @@
                 <input v-model="newBook.pages" placeholder="Pages" type="number" />
                 <input v-model="newBook.price" placeholder="Price" type="number" step="0.01" />
                 <input v-model="newBook.author_id" placeholder="Author ID" type="number" />
-                <button>Add</button>
+                <button @click="createBook">Add</button>
             </div>
         </div>
 
