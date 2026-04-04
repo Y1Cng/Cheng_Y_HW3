@@ -229,3 +229,6 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
 }
 
 #btn-close-detail:hover { background: #f0f0f0; }
+
+[v-cloak] {
+  display: none;
