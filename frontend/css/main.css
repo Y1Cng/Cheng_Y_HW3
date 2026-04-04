@@ -266,3 +266,6 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
 }
 
 .form-fields button:hover { background: #2e2e50; }
+
+[v-cloak] {
+  display: none;
