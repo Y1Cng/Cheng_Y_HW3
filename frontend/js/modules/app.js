@@ -15,6 +15,8 @@ export function app() {
         loading: false,
         loadingDetail: false,
         error: null,
+        newAuthor: { name: '', email: '', bio: '' },
+        newBook: { title: '', pages: '', price: '', author_id: '' },
       };
     },
 
@@ -153,6 +155,56 @@ export function app() {
           if (this.selectedItem && this.selectedItem.id === id) {
             this.selectedItem = null;
           }
+          this.loadList();
+        }
+      },
+
+      createAuthor() {
+        this.error = null;
+
+        fetch(`${this.apiUrl}/authors`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.newAuthor),
+        })
+          .then(handleCreateResponse)
+          .then(resetAndReload.bind(this))
+          .catch(handleError.bind(this));
+
+        function handleCreateResponse(res) {
+          if (!res.ok) {
+            throw new Error('Failed to create author.');
+          }
+          return res.json();
+        }
+
+        function resetAndReload() {
+          this.newAuthor = { name: '', email: '', bio: '' };
+          this.loadList();
+        }
+      },
+
+      createBook() {
+        this.error = null;
+
+        fetch(`${this.apiUrl}/books`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.newBook),
+        })
+          .then(handleCreateResponse)
+          .then(resetAndReload.bind(this))
+          .catch(handleError.bind(this));
+
+        function handleCreateResponse(res) {
+          if (!res.ok) {
+            throw new Error('Failed to create book.');
+          }
+          return res.json();
+        }
+
+        function resetAndReload() {
+          this.newBook = { title: '', pages: '', price: '', author_id: '' };
           this.loadList();
         }
       },

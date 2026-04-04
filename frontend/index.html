@@ -124,6 +124,27 @@
             </div>
         </div>
 
+        <!-- Add form -->
+        <div class="col-span-full" id="add-form">
+            <h3 v-if="currentTab === 'authors'">Add Author</h3>
+            <h3 v-else>Add Book</h3>
+
+            <div class="form-fields" v-if="currentTab === 'authors'">
+                <input v-model="newAuthor.name" placeholder="Name" />
+                <input v-model="newAuthor.email" placeholder="Email" />
+                <input v-model="newAuthor.bio" placeholder="Bio" />
+                <button @click="createAuthor">Add</button>
+            </div>
+
+            <div class="form-fields" v-else>
+                <input v-model="newBook.title" placeholder="Title" />
+                <input v-model="newBook.pages" placeholder="Pages" type="number" />
+                <input v-model="newBook.price" placeholder="Price" type="number" step="0.01" />
+                <input v-model="newBook.author_id" placeholder="Author ID" type="number" />
+                <button @click="createBook">Add</button>
+            </div>
+        </div>
+
     </main>
 
 </body>
