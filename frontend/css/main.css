@@ -125,12 +125,12 @@ h3 { font-size: 1rem; margin-bottom: 14px; }
 
 /* ===== Card List ===== */
 #card-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   list-style: none;
   padding: 0;
-  margin: 20px 0 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  margin: 0;
 }
 
 .card {
